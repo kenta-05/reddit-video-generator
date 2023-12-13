@@ -1,18 +1,17 @@
 import praw
 import os
 from dotenv import load_dotenv
-
 load_dotenv()
 
-# create read-only reddit instance
-reddit = praw.Reddit(
-    client_id=os.environ.get('CLIENT_ID'),
-    client_secret=os.environ.get('SECRET_ID'),
-    user_agent=os.environ.get('USER_AGENT')
-)
+def scrape_reddit(submissionUrl: str, limit: int = 10):
+    # create read-only reddit instance
+    reddit = praw.Reddit(
+        client_id=os.environ.get('CLIENT_ID'),
+        client_secret=os.environ.get('SECRET_ID'),
+        user_agent=os.environ.get('USER_AGENT')
+    )
 
-submissionUrl = 'https://www.reddit.com/r/learnprogramming/comments/18dwamg/do_you_think_blockchain_development_is_a_good/'
-
-# get submission by url
-submission = reddit.submission(url=submissionUrl)
-print(submission.title)
+    # attributes of submission -> https://praw.readthedocs.io/en/latest/code_overview/models/submission.html
+    submission = reddit.submission(url=submissionUrl)
+    comments = submission.comments.replace_more(limit)
+    return comments
