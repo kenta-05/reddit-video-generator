@@ -1,5 +1,6 @@
 import re
 import json
+import os
 
 reddit_post_data ={'title': '', 'comments': []}
 
@@ -31,5 +32,8 @@ def save_data(title: str, comments: str):
         reddit_post_data['comments'].append({'comment': comment_text, 'replies': replies_list})
     reddit_post_data['title'] = title
     json_reddit_post_data = json.dumps(reddit_post_data, indent=2) # convert into JSON
-    with open('backend//data/reddit_post_data.json', 'w') as f: # write to file
+    
+    here_dir = os.path.dirname(os.path.abspath(__file__)) # get the directory of this file
+    reddit_post_data_path = os.path.join(here_dir, '..', '..', 'data') # join the directory with the file name
+    with open(f'{reddit_post_data_path}/reddit_post_data.json', 'w') as f: # write to file
         f.write(json_reddit_post_data)
