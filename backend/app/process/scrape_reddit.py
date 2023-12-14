@@ -14,6 +14,6 @@ def scrape_reddit(submissionUrl: str, limit: int = 0):
     # attributes of submission -> https://praw.readthedocs.io/en/latest/code_overview/models/submission.html
     submission = reddit.submission(url='https://www.reddit.com/r/learnprogramming/comments/18dixwu/how_can_i_download_assets_on_oreilly_video/')
     title = submission.title
-    comments = [comment.body for comment in submission.comments.list()] 
+    comments = submission.comments
 
     return title, comments

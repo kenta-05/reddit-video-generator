@@ -3,6 +3,9 @@ from app.process.save_data import save_data
 
 # submissionUrl = input('Enter a reddit post url:')
 submissionUrl = 'https://www.reddit.com/r/learnprogramming/comments/18dixwu/how_can_i_download_assets_on_oreilly_video/'
+
+# get title and comments
 title, comments = scrape_reddit(submissionUrl)
+# save it to file
 save_data(title, comments)
-print(title, comments)
+
