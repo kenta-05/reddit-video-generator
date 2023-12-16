@@ -17,19 +17,19 @@ def get_replies(comment: str):
     """Get the replies of the comment recursively"""
     
     replies_list = []
-    for reply in comment.replies:
+    for index, reply in enumerate(comment.replies, start=1):
         reply_text = format_comment(reply.body)
         nested_replies_list = get_replies(reply)
-        replies_list.append({'comment': reply_text, 'replies': nested_replies_list})
+        replies_list.append({'id': index, 'comment': reply_text, 'replies': nested_replies_list})
     return replies_list
 
 def save_data(title: str, comments: str):
     """Save the data to a file"""
     
-    for comment in comments: # comments is an CommentForest object
+    for index, comment in enumerate(comments, start=1): # comments is an CommentForest object
         comment_text = format_comment(comment.body) # comment isn't a string, comment_text is a string
         replies_list = get_replies(comment)
-        reddit_post_data['comments'].append({'comment': comment_text, 'replies': replies_list})
+        reddit_post_data['comments'].append({'id': index, 'comment': comment_text, 'replies': replies_list})
     reddit_post_data['title'] = title
     json_reddit_post_data = json.dumps(reddit_post_data, indent=2) # convert into JSON
     
