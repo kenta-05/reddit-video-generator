@@ -23,7 +23,7 @@ def get_replies(comment: str):
         replies_list.append({'id': index, 'comment': reply_text, 'replies': nested_replies_list})
     return replies_list
 
-def save_data(title: str, comments: str):
+def save_data(title: str, comments):
     """Save the data to a file"""
     
     for index, comment in enumerate(comments, start=1): # comments is an CommentForest object

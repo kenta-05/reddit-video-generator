@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-def scrape_reddit(submissionUrl: str, limit: int = 0):
+def scrape_reddit(submissionUrl: str):
     # create read-only reddit instance
     reddit = praw.Reddit(
         client_id=os.environ.get('CLIENT_ID'),
@@ -15,5 +15,6 @@ def scrape_reddit(submissionUrl: str, limit: int = 0):
     submission = reddit.submission(url=submissionUrl)
     title = submission.title
     comments = submission.comments
+    comments.replace_more(limit=None)
 
     return title, comments
